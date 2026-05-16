@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "UTpV7R16/T8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\11031462\\Documents\\AI Projects\\RAG\\SBOneAIKnowlegde\\src\\KnowledgeAssistant\\BlazorUI\\BlazorUI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\11031462\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.3\\microsoft.aspnetcore.app.internal.assets.10.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
