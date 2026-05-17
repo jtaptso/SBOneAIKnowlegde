@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowledgeAssistant — Dataflow Diagrams</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" onerror="document.querySelectorAll('.mermaid-fallback').forEach(el => el.style.display = 'block')"></script>
+    <noscript>
+        <style>.mermaid { display: none; } .mermaid-fallback { display: block !important; }</style>
+    </noscript>
+    <style>
+        :root {
+            --bg: #f8f9fb;
+            --surface: #ffffff;
+            --text: #1a1d23;
+            --text-muted: #5f6672;
+            --border: #e2e5eb;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --grad-start: #1e293b;
+            --grad-end: #0f172a;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --card-hover: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --tag-bg: #eef2ff;
+            --tag-text: #4338ca;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-end) 100%);
+            color: #fff;
+            padding: 48px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -60%; right: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 1;
+        }
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 400;
+        }
+        .header .badge-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.85);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+        .badge .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-blue  { background: #60a5fa; }
+        .dot-green { background: #34d399; }
+        .dot-amber { background: #fbbf24; }
+        .dot-red   { background: #f87171; }
+
+        /* ── Nav ── */
+        .nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+        }
+        .nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 14px 18px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .nav a:hover { color: var(--text); background: var(--bg); }
+        .nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        /* ── Main ── */
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+
+        /* ── Section ── */
+        .section {
+            margin-bottom: 48px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .section-num {
+            width: 40px; height: 40px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .section-header h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px 32px;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s;
+        }
+        .card:hover { box-shadow: var(--card-hover); }
+        .card .mermaid {
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+
+        /* ── Data Table ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .data-table thead th {
+            text-align: left;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+        .data-table tbody td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .data-table .field-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .data-table code {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+        }
+        .notes-list code {
+            background: #e2e8f0;
+            color: #334155;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+        }
+        .data-table .storage-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .storage-sql    { background: #dbeafe; color: #1e40af; }
+        .storage-qdrant { background: #fef3c7; color: #92400e; }
+        .storage-memory { background: #d1fae5; color: #065f46; }
+
+        /* ── Notes ── */
+        .notes-list {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+        .notes-list li {
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+        .notes-list li.warning {
+            border-left-color: var(--warning);
+            background: #fffbeb;
+        }
+        .notes-list li strong { color: var(--text); }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.7rem; }
+            .card { padding: 20px 16px; }
+            .main { padding: 24px 16px; }
+            .nav a { padding: 12px 12px; font-size: 0.78rem; }
+        }
+
+        /* ── Print ── */
+        @media print {
+            .nav { display: none; }
+            .header { padding: 24px 0; }
+            .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .mermaid svg { max-width: 100% !important; background: #fff; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<!-- HEADER                                                              -->
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<header class="header">
+    <div class="header-inner">
+        <h1>📊 KnowledgeAssistant Dataflow</h1>
+        <p class="subtitle">How data moves through the RAG pipeline — from PDF ingestion to AI-powered answers</p>
+        <div class="badge-row">
+            <span class="badge"><span class="dot dot-blue"></span> .NET 8.0</span>
+            <span class="badge"><span class="dot dot-green"></span> OpenAI</span>
+            <span class="badge"><span class="dot dot-amber"></span> Qdrant</span>
+            <span class="badge"><span class="dot dot-red"></span> SQL Server</span>
+        </div>
+    </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<!-- NAV                                                                 -->
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#ingestion" class="active">Ingestion Pipeline</a>
+        <a href="#query">Query Pipeline</a>
+        <a href="#architecture">Component Architecture</a>
+        <a href="#datastructures">Data Structures</a>
+        <a href="#dependencies">Dependencies</a>
+        <a href="#notes">Notes</a>
+    </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<!-- MAIN CONTENT                                                        -->
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<main class="main">
+
+    <!-- ── 1. Document Processing Flow ── -->
+    <section class="section" id="ingestion">
+        <div class="section-header">
+            <div class="section-num">1</div>
+            <div>
+                <h2>Document Processing Flow</h2>
+                <p>Ingestion Pipeline — PDF → Text → Chunks → Embeddings → Qdrant</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="mermaid">
+sequenceDiagram
+    actor U as 👤 User / Admin
+    participant API as 🖥️ API / Caller
+    participant DPS as 📦 DocumentProcessingService
+    participant REPO as 🗄️ DocumentRepository
+    participant DB as 📊 SQL Server
+    participant PDF as 📄 PdfExtractionService&lt;br&gt;(PdfPig)
+    participant CHK as ✂️ TextChunkingService
+    participant EMB as 🧠 EmbeddingService&lt;br&gt;(OpenAI)
+    participant QD as 🔍 QdrantVectorStore
+
+    Note over U,API: Document already exists in DB&lt;br&gt;(upload not yet implemented)
+
+    U-&gt;&gt;API: ProcessDocumentAsync(documentId)
+    API-&gt;&gt;DPS: ProcessDocumentAsync(documentId)
+    DPS-&gt;&gt;REPO: GetDocumentByIdAsync(id)
+    REPO-&gt;&gt;DB: SELECT * FROM Documents WHERE Id = @id
+    DB--&gt;&gt;REPO: Document entity
+    REPO--&gt;&gt;DPS: Document (FileName, FilePath)
+
+    DPS-&gt;&gt;PDF: ExtractTextAsync(filePath)
+    PDF-&gt;&gt;PDF: Open PDF with PdfPig&lt;br&gt;Read all pages
+    PDF--&gt;&gt;DPS: Full extracted text
+
+    DPS-&gt;&gt;CHK: ChunkText(text, size=800)
+    CHK-&gt;&gt;CHK: Split into 800-char chunks
+    CHK--&gt;&gt;DPS: List&lt;string&gt; chunks
+
+    loop For each chunk
+        DPS-&gt;&gt;EMB: GenerateEmbeddingAsync(chunk)
+        EMB-&gt;&gt;EMB: Call OpenAI&lt;br&gt;text-embedding-3-small
+        EMB--&gt;&gt;DPS: float[1536] vector
+
+        DPS-&gt;&gt;QD: UpsertAsync(docId, index, chunk, vector)
+        QD-&gt;&gt;QD: Store point with&lt;br&gt;payload &amp; vector
+        QD--&gt;&gt;DPS: OK
+    end
+
+    DPS--&gt;&gt;API: Processing complete
+    API--&gt;&gt;U: ✅ Document indexed successfully
+            </div>
+        </div>
+    </section>
+
+    <!-- ── 2. Question Answering Flow ── -->
+    <section class="section" id="query">
+        <div class="section-header">
+            <div class="section-num">2</div>
+            <div>
+                <h2>Question Answering Flow</h2>
+                <p>Query Pipeline — Question → Embedding → Search → Context → GPT → Answer</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="mermaid">
+sequenceDiagram
+    actor U as 👤 User
+    participant API as 🖥️ ChatController
+    participant CS as 💬 OpenAIChatService
+    participant EMB as 🧠 EmbeddingService&lt;br&gt;(OpenAI)
+    participant QD as 🔍 QdrantVectorSearchService
+    participant QDB as 📦 Qdrant DB
+    participant GPT as 🤖 OpenAI Chat&lt;br&gt;(GPT Model)
+
+    U-&gt;&gt;API: POST /api/chat&lt;br&gt;{"question": "How to..."}
+    API-&gt;&gt;CS: AskAsync(question)
+
+    CS-&gt;&gt;QD: SearchAsync(question, topK=5)
+    QD-&gt;&gt;EMB: GenerateEmbeddingAsync(question)
+    EMB-&gt;&gt;EMB: Call OpenAI&lt;br&gt;text-embedding-3-small
+    EMB--&gt;&gt;QD: float[1536] query vector
+
+    QD-&gt;&gt;QDB: Search("documents", vector, limit=5)
+    QDB-&gt;&gt;QDB: Cosine similarity search&lt;br&gt;across all document chunks
+    QDB--&gt;&gt;QD: Top 5 matching points
+
+    QD-&gt;&gt;QD: Extract payload.content&lt;br&gt;from each match
+    QD--&gt;&gt;CS: List&lt;VectorSearchResult&gt;&lt;br&gt;(Content, Score, DocId)
+
+    CS-&gt;&gt;CS: Build RAG prompt:&lt;br&gt;System: "You are an SAP B1 assistant"&lt;br&gt;Context: [retrieved chunks]&lt;br&gt;Question: [user question]
+
+    CS-&gt;&gt;GPT: CompleteChatAsync(prompt)
+    GPT-&gt;&gt;GPT: Generate answer from context
+    GPT--&gt;&gt;CS: ChatCompletion response
+
+    CS--&gt;&gt;API: Answer string
+    API--&gt;&gt;U: {"question": "...", "answer": "..."}
+            </div>
+        </div>
+    </section>
+
+    <!-- ── 3. Component Architecture ── -->
+    <section class="section" id="architecture">
+        <div class="section-header">
+            <div class="section-num">3</div>
+            <div>
+                <h2>Component Architecture</h2>
+                <p>Clean Architecture layers and how they connect to external services</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="mermaid">
+flowchart TB
+    subgraph UI["🎨 Presentation Layer"]
+        BL["🖥️ BlazorUI&lt;br&gt;&lt;i&gt;(scaffolded, not yet wired)&lt;/i&gt;"]
+    end
+
+    subgraph API_L["🌐 API Layer (.NET 8.0)"]
+        CC["💬 ChatController&lt;br&gt;POST /api/chat"]
+        SW["📋 Swagger UI"]
+    end
+
+    subgraph APP_L["📋 Application Layer"]
+        IC["📋 Interfaces"]
+        DPS["📦 DocumentProcessingService&lt;br&gt;&lt;i&gt;orchestrates ingestion&lt;/i&gt;"]
+    end
+
+    subgraph INF_L["⚙️ Infrastructure Layer"]
+        subgraph AI_S["🧠 AI Services"]
+            EMB["🧠 EmbeddingService&lt;br&gt;OpenAI text-embedding-3-small"]
+            CHT["💬 OpenAIChatService&lt;br&gt;GPT model"]
+        end
+        subgraph DOC["📄 Document Processing"]
+            EXT["📄 PdfExtractionService&lt;br&gt;PdfPig"]
+            CHK["✂️ TextChunkingService&lt;br&gt;800-char windows"]
+        end
+        subgraph VEC["🔍 Vector Database"]
+            QVS["🔍 QdrantVectorSearchService"]
+            QVS2["📦 QdrantVectorStore"]
+        end
+        subgraph DATA_L["🗄️ Data Persistence"]
+            REPO["🗄️ DocumentRepository"]
+            EFC["🏗️ EF Core DbContext"]
+        end
+    end
+
+    subgraph EXT_S["☁️ External Services"]
+        OAI["☁️ OpenAI API&lt;br&gt;Embeddings + Chat"]
+        QDR["🔍 Qdrant Server&lt;br&gt;Vector Search"]
+        SQL["📊 SQL Server&lt;br&gt;Document Metadata"]
+    end
+
+    BL --&gt; CC
+    CC --&gt; IC
+    IC --&gt; DPS
+    DPS --&gt; EXT
+    DPS --&gt; CHK
+    DPS --&gt; EMB
+    DPS --&gt; QVS2
+    DPS --&gt; REPO
+
+    IC --&gt; CHT
+    CHT --&gt; QVS
+    CHT --&gt; OAI
+    QVS --&gt; EMB
+    QVS --&gt; QDR
+
+    EMB --&gt; OAI
+    CHT --&gt; OAI
+    QVS2 --&gt; QDR
+    REPO --&gt; EFC
+    EFC --&gt; SQL
+            </div>
+        </div>
+    </section>
+
+    <!-- ── 4. Key Data Structures ── -->
+    <section class="section" id="datastructures">
+        <div class="section-header">
+            <div class="section-num">4</div>
+            <div>
+                <h2>Key Data Structures</h2>
+                <p>What data flows through the system and where it lives</p>
+            </div>
+        </div>
+        <div class="card" style="padding: 0; overflow: hidden;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Shape</th>
+                        <th>Storage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="field-name">Document metadata</td>
+                        <td><code>Id, FileName, FilePath, UploadedAt, UploadedBy</code></td>
+                        <td><span class="storage-badge storage-sql">SQL Server</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Document chunks</td>
+                        <td><code>Id, DocumentId, ChunkIndex, PageNumber, Content</code></td>
+                        <td><span class="storage-badge storage-sql">SQL Server</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Embedding vector</td>
+                        <td><code>float[1536]</code> (text-embedding-3-small)</td>
+                        <td><span class="storage-badge storage-qdrant">Qdrant</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Qdrant point payload</td>
+                        <td><code>documentId, chunkIndex, content</code></td>
+                        <td><span class="storage-badge storage-qdrant">Qdrant</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Search result</td>
+                        <td><code>Content, DocumentId, ChunkIndex, Score</code></td>
+                        <td><span class="storage-badge storage-memory">In-memory (DTO)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="field-name">Chat request / response</td>
+                        <td><code>{ question, answer }</code></td>
+                        <td><span class="storage-badge storage-memory">In-memory (HTTP)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ── 5. External Service Dependencies ── -->
+    <section class="section" id="dependencies">
+        <div class="section-header">
+            <div class="section-num">5</div>
+            <div>
+                <h2>External Service Dependencies</h2>
+                <p>All third-party services the application connects to</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="mermaid">
+flowchart LR
+    APP[🏠 KnowledgeAssistant App]
+
+    APP --&gt;|"Embeddings API"| OAI[☁️ OpenAI&lt;br&gt;text-embedding-3-small]
+    APP --&gt;|"Chat Completions API"| OAIC[🤖 OpenAI&lt;br&gt;GPT model]
+    APP --&gt;|"gRPC (port 6334)"| QD[🔍 Qdrant&lt;br&gt;Vector Database]
+    APP --&gt;|"SQL (port 1433)"| SQL[📊 SQL Server&lt;br&gt;SapAIAssistantDb]
+            </div>
+        </div>
+    </section>
+
+    <!-- ── 6. Notes ── -->
+    <section class="section" id="notes">
+        <div class="section-header">
+            <div class="section-num">6</div>
+            <div>
+                <h2>Notes &amp; Configuration</h2>
+                <p>Key implementation details and known issues</p>
+            </div>
+        </div>
+        <div class="card">
+            <ul class="notes-list">
+                <li><strong>Embedding dimension:</strong> 1536 — OpenAI <code>text-embedding-3-small</code></li>
+                <li class="warning">⚠️ <strong>Qdrant collection mismatch:</strong> <code>QdrantVectorStore</code> stores in <code>sapb1_docs</code> (auto-created on startup), but <code>QdrantVectorSearchService</code> searches <code>documents</code> — this is a known bug</li>
+                <li><strong>Chunk size:</strong> 800 characters — simple fixed-window chunking</li>
+                <li><strong>Similarity metric:</strong> Cosine distance</li>
+                <li><strong>Top-K retrieval:</strong> 5 most relevant chunks per query</li>
+                <li><strong>RAG prompt:</strong> System prompt enforces answering only from provided context — prevents hallucination</li>
+                <li><strong>Document upload:</strong> Not yet implemented as an API endpoint — <code>ProcessDocumentAsync</code> expects the document to already exist in the database</li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                              -->
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+    KnowledgeAssistant · RAG-powered SAP Business One AI Assistant · Built with .NET, OpenAI &amp; Qdrant
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                                             -->
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<script>
+    // ── Initialize Mermaid ──
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'default',
+        securityLevel: 'loose',
+        sequence: {
+            diagramMarginX: 50,
+            diagramMarginY: 20,
+            actorMargin: 60,
+            width: 180,
+            height: 60,
+            boxMargin: 10,
+            boxTextMargin: 5,
+            noteMargin: 15,
+            messageMargin: 40,
+            mirrorActors: false,
+            useMaxWidth: true,
+            wrap: true,
+            wrapPadding: 12,
+        },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis',
+            padding: 20,
+            nodeSpacing: 50,
+            rankSpacing: 60,
+        },
+        themeVariables: {
+            fontSize: '15px',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+            primaryColor: '#eef2ff',
+            primaryTextColor: '#1a1d23',
+            primaryBorderColor: '#c7d2fe',
+            lineColor: '#94a3b8',
+            secondaryColor: '#f8fafc',
+            tertiaryColor: '#f1f5f9',
+            noteBkgColor: '#fffbeb',
+            noteTextColor: '#92400e',
+            noteBorderColor: '#fcd34d',
+            actorBkg: '#eef2ff',
+            actorBorder: '#c7d2fe',
+            actorTextColor: '#1a1d23',
+            actorLineColor: '#94a3b8',
+            signalColor: '#1a1d23',
+            signalTextColor: '#1a1d23',
+            labelBoxBkgColor: '#f8fafc',
+            labelBoxBorderColor: '#e2e8f0',
+            loopTextColor: '#1a1d23',
+            activationBorderColor: '#3b82f6',
+            activationBkgColor: '#eff6ff',
+            sequenceNumberColor: '#ffffff',
+        }
+    });
+
+    // ── Active nav link on scroll ──
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    function updateActiveLink() {
+        let current = '';
+        sections.forEach(section => {
+            const top = section.offsetTop - 100;
+            if (window.scrollY >= top) {
+                current = section.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
+
+    // ── Smooth scroll ──
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
