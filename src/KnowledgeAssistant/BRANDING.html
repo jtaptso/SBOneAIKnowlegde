@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP B1 Developer Channel — Branding Kit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-blue: #0B1F3B;
+            --sap-blue: #0FA3FF;
+            --cyan-accent: #00E0FF;
+            --purple: #6C63FF;
+            --white: #F5F7FA;
+            --soft-gray: #AAB4C0;
+            --gradient: linear-gradient(135deg, #0B1F3B, #0F2D5C, #0FA3FF);
+            --card-bg: rgba(11, 31, 59, 0.7);
+            --card-border: rgba(15, 163, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #060E1A;
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── Animated background ── */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-glow::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse at center, rgba(0, 224, 255, 0.06) 0%, transparent 70%);
+            animation: drift 20s ease-in-out infinite;
+        }
+        .bg-glow::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            right: -15%;
+            width: 70%;
+            height: 120%;
+            background: radial-gradient(ellipse at center, rgba(108, 99, 255, 0.05) 0%, transparent 70%);
+            animation: drift 25s ease-in-out infinite reverse;
+        }
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(4%, 3%) rotate(1deg); }
+            66% { transform: translate(-2%, -2%) rotate(-1deg); }
+        }
+
+        /* ── Layout ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Header ── */
+        header {
+            text-align: center;
+            padding: 100px 0 80px;
+            position: relative;
+            background: var(--gradient);
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(0, 224, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        header .container { position: relative; z-index: 1; }
+        header .badge {
+            display: inline-block;
+            background: rgba(0, 224, 255, 0.12);
+            border: 1px solid rgba(0, 224, 255, 0.3);
+            color: var(--cyan-accent);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #F5F7FA 0%, #0FA3FF 50%, #00E0FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header .subtitle {
+            color: var(--soft-gray);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+        header .nav-dots {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        header .nav-dots a {
+            width: 8px; height: 8px;
+            background: rgba(245, 247, 250, 0.25);
+            border-radius: 50%;
+            display: block;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        header .nav-dots a:hover,
+        header .nav-dots a.active {
+            background: var(--cyan-accent);
+            box-shadow: 0 0 12px rgba(0, 224, 255, 0.6);
+            transform: scale(1.5);
+        }
+
+        /* ── Section ── */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid rgba(15, 163, 255, 0.08);
+        }
+        section:last-of-type { border-bottom: none; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+        .section-header .num {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--cyan-accent);
+            background: rgba(0, 224, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .card:hover {
+            border-color: rgba(0, 224, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+        .card p {
+            color: var(--soft-gray);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        /* ── Color Palette ── */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 20px;
+        }
+        .color-swatch {
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .color-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        .color-swatch .preview {
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            padding: 14px;
+        }
+        .color-swatch .preview .label-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+        }
+        .color-swatch .info {
+            background: rgba(6, 14, 26, 0.9);
+            padding: 14px 16px;
+            font-size: 0.82rem;
+        }
+        .color-swatch .info .hex {
+            font-family: 'Fira Code', monospace;
+            color: var(--cyan-accent);
+            font-weight: 500;
+            display: block;
+        }
+        .color-swatch .info .use {
+            color: var(--soft-gray);
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: block;
+        }
+        .copied-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--cyan-accent);
+            color: #060E1A;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .copied-toast.show { opacity: 1; }
+
+        /* ── Gradient Showcase ── */
+        .gradient-showcase {
+            border-radius: 16px;
+            height: 200px;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+            border: 1px solid var(--card-border);
+        }
+        .gradient-showcase::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 60% 30%, rgba(0, 224, 255, 0.15) 0%, transparent 60%);
+        }
+        .gradient-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: var(--soft-gray);
+            background: rgba(6, 14, 26, 0.8);
+            padding: 16px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        /* ── Typography ── */
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .type-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 28px;
+            backdrop-filter: blur(10px);
+        }
+        .type-card .sample {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .type-card .sample.montserrat {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        .type-card .sample.inter {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+        .type-card .sample.fira {
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            color: var(--cyan-accent);
+        }
+        .type-card .name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .type-card .use {
+            color: var(--soft-gray);
+            font-size: 0.82rem;
+        }
+        .type-card .weights {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .type-card .weights span {
+            background: rgba(15, 163, 255, 0.1);
+            border: 1px solid rgba(15, 163, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            color: var(--sap-blue);
+        }
+
+        /* ── Banner Mockup ── */
+        .banner-mockup {
+            width: 100%;
+            aspect-ratio: 2560 / 423;
+            background: var(--gradient);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            border: 1px solid var(--card-border);
+        }
+        .banner-mockup::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(0, 224, 255, 0.08) 0%, transparent 50%);
+        }
+        .banner-mockup .left {
+            z-index: 1;
+            flex-shrink: 0;
+            margin-right: 5%;
+        }
+        .banner-mockup .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(0, 224, 255, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(6, 14, 26, 0.5);
+            position: relative;
+        }
+        .banner-mockup .logo-placeholder .node {
+            width: 10px; height: 10px;
+            background: var(--cyan-accent);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 10px var(--cyan-accent);
+        }
+        .banner-mockup .logo-placeholder .node:nth-child(1) { top: 25px; left: 50%; transform: translateX(-50%); }
+        .banner-mockup .logo-placeholder .node:nth-child(2) { bottom: 25px; left: 22px; }
+        .banner-mockup .logo-placeholder .node:nth-child(3) { bottom: 25px; right: 22px; }
+        .banner-mockup .logo-placeholder .line {
+            position: absolute;
+            background: rgba(0, 224, 255, 0.3);
+        }
+        .banner-mockup .logo-placeholder .line:nth-child(4) {
+            width: 1px; height: 28px; top: 36px; left: 50%;
+            transform: translateX(-50%);
+        }
+        .banner-mockup .logo-placeholder .line:nth-child(5) {
+            width: 28px; height: 1px; top: 50px; left: 36px;
+            transform: rotate(-60deg);
+            transform-origin: left center;
+        }
+        .banner-mockup .logo-placeholder .line:nth-child(6) {
+            width: 28px; height: 1px; top: 50px; right: 36px;
+            transform: rotate(60deg);
+            transform-origin: right center;
+        }
+        .banner-mockup .center {
+            z-index: 1;
+        }
+        .banner-mockup .center h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.4rem, 3vw, 2.4rem);
+            color: var(--white);
+            line-height: 1.2;
+        }
+        .banner-mockup .center .tagline {
+            font-family: 'Fira Code', monospace;
+            font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+            color: var(--cyan-accent);
+            margin-top: 8px;
+            letter-spacing: 0.02em;
+        }
+        .banner-mockup .right {
+            z-index: 1;
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .banner-mockup .right .flow-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan-accent), transparent);
+            width: 120px;
+            opacity: 0.4;
+        }
+        .banner-mockup .right .flow-node {
+            width: 6px; height: 6px;
+            background: var(--cyan-accent);
+            border-radius: 50%;
+            align-self: center;
+            box-shadow: 0 0 8px var(--cyan-accent);
+        }
+
+        /* ── Thumbnail Examples ── */
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .thumb {
+            aspect-ratio: 1280 / 720;
+            background: var(--gradient);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .thumb:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 48px rgba(0, 224, 255, 0.15);
+        }
+        .thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(0, 224, 255, 0.1) 0%, transparent 60%);
+        }
+        .thumb .title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+        .thumb .title .cyan {
+            color: var(--cyan-accent);
+            text-shadow: 0 0 20px rgba(0, 224, 255, 0.4);
+        }
+        .thumb .code-overlay {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.55rem;
+            color: rgba(170, 180, 192, 0.5);
+            z-index: 1;
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* ── Brand Voice ── */
+        .voice-examples {
+            display: grid;
+            gap: 16px;
+        }
+        .voice-example {
+            background: rgba(6, 14, 26, 0.6);
+            border: 1px solid var(--card-border);
+            border-left: 3px solid var(--cyan-accent);
+            border-radius: 0 10px 10px 0;
+            padding: 18px 22px;
+            font-size: 0.95rem;
+            color: var(--soft-gray);
+            transition: border-color 0.3s;
+        }
+        .voice-example.do { border-left-color: var(--cyan-accent); }
+        .voice-example.avoid { border-left-color: #e0556a; }
+        .voice-example .tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .voice-example.do .tag { color: var(--cyan-accent); }
+        .voice-example.avoid .tag { color: #e0556a; }
+
+        /* ── Differentiation ── */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .diff-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .diff-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .diff-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .diff-card p {
+            color: var(--soft-gray);
+            font-size: 0.88rem;
+        }
+        .diff-card.not {
+            border-color: rgba(224, 85, 106, 0.2);
+            opacity: 0.6;
+        }
+        .diff-card.is {
+            border-color: rgba(0, 224, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 224, 255, 0.05);
+        }
+
+        /* ── Signature Motif ── */
+        .motif-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 40px;
+            flex-wrap: wrap;
+        }
+        .motif-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .motif-item .icon-box {
+            width: 80px; height: 80px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .motif-item .label {
+            font-size: 0.8rem;
+            color: var(--soft-gray);
+            text-align: center;
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--soft-gray);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(15, 163, 255, 0.08);
+        }
+        footer .gradient-bar {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-accent), var(--purple), transparent);
+            margin-bottom: 30px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            header { padding: 60px 0 50px; clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%); }
+            section { padding: 50px 0; }
+            .banner-mockup { flex-direction: column; justify-content: center; gap: 16px; aspect-ratio: auto; height: 180px; padding: 20px; }
+            .banner-mockup .logo-placeholder { width: 50px; height: 50px; border-radius: 10px; }
+            .banner-mockup .center h2 { font-size: 1rem; text-align: center; }
+            .banner-mockup .center .tagline { text-align: center; }
+            .banner-mockup .right { display: none; }
+            .color-grid { grid-template-columns: repeat(2, 1fr); }
+            .thumb-grid { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            body { background: white; color: #0B1F3B; }
+            .card, .type-card, .diff-card { background: #f0f4f8; border: 1px solid #d0d8e0; }
+            .bg-glow { display: none; }
+            header { clip-path: none; padding: 40px 0; }
+            header h1 { -webkit-text-fill-color: #0B1F3B; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="copied-toast" id="toast">Copied!</div>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+    <div class="container">
+        <div class="badge">Branding Kit v1.0</div>
+        <h1>SAP B1 Developer Channel</h1>
+        <p class="subtitle">Enterprise-grade SAP Business One development made practical for real-world integrations.</p>
+        <div class="nav-dots">
+            <a href="#positioning" title="Positioning"></a>
+            <a href="#colors" title="Colors"></a>
+            <a href="#typography" title="Typography"></a>
+            <a href="#banner" title="Banner"></a>
+            <a href="#thumbnails" title="Thumbnails"></a>
+            <a href="#voice" title="Voice"></a>
+            <a href="#differentiation" title="Differentiation"></a>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════ 1. BRAND POSITIONING ═══════════════ -->
+<section id="positioning">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">01</span>
+            <h2>Brand Positioning</h2>
+        </div>
+
+        <div class="card">
+            <h3>Channel Identity</h3>
+            <p style="font-size:1.05rem;color:var(--white);">
+                Enterprise-grade SAP Business One development made practical for real-world integrations.
+            </p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+            <div class="card">
+                <h3>Core Identity</h3>
+                <ul style="color:var(--soft-gray);font-size:0.92rem;padding-left:20px;display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+                    <li><strong style="color:var(--sap-blue);">Developer-first</strong></li>
+                    <li><strong style="color:var(--sap-blue);">Integration &amp; automation</strong> focused</li>
+                    <li><strong style="color:var(--sap-blue);">Real-world SAP B1</strong> problem solving</li>
+                    <li><strong style="color:var(--sap-blue);">Freelance / consulting</strong> oriented</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Personality</h3>
+                <ul style="color:var(--soft-gray);font-size:0.92rem;padding-left:20px;display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+                    <li>Precise, technical, <strong style="color:var(--white);">trustworthy</strong></li>
+                    <li>Not beginner fluff — <strong style="color:var(--cyan-accent);">practical and applied</strong></li>
+                    <li style="font-style:italic;color:var(--white);">"I build real systems, not theory"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 2. COLOR PALETTE ═══════════════ -->
+<section id="colors">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">02</span>
+            <h2>Color Palette</h2>
+        </div>
+
+        <h3 style="font-family:'Montserrat',sans-serif;margin-bottom:6px;">Primary Colors</h3>
+        <p style="color:var(--soft-gray);margin-bottom:20px;font-size:0.9rem;">Modern enterprise tech palette</p>
+        <div class="color-grid">
+            <div class="color-swatch" onclick="copyHex(this)" data-hex="#0B1F3B">
+                <div class="preview" style="background:#0B1F3B;">
+                    <span class="label-tag" style="background:rgba(245,247,250,0.15);color:#F5F7FA;">🟦 Primary</span>
+                </div>
+                <div class="info"><span class="hex">#0B1F3B</span><span class="use">Deep Enterprise Blue — backgrounds, headers, base UI</span></div>
+            </div>
+            <div class="color-swatch" onclick="copyHex(this)" data-hex="#0FA3FF">
+                <div class="preview" style="background:#0FA3FF;">
+                    <span class="label-tag" style="background:rgba(255,255,255,0.2);color:#fff;">🔷 Accent</span>
+                </div>
+                <div class="info"><span class="hex">#0FA3FF</span><span class="use">SAP-Inspired Blue — highlights, links, key accents</span></div>
+            </div>
+            <div class="color-swatch" onclick="copyHex(this)" data-hex="#00E0FF">
+                <div class="preview" style="background:#00E0FF;">
+                    <span class="label-tag" style="background:rgba(6,14,26,0.5);color:#060E1A;">🌐 Glow</span>
+                </div>
+                <div class="info"><span class="hex">#00E0FF</span><span class="use">Cyan Tech Accent — glow effects, integrations, API flows</span></div>
+            </div>
+        </div>
+
+        <h3 style="font-family:'Montserrat',sans-serif;margin:32px 0 6px;">Secondary Colors</h3>
+        <p style="color:var(--soft-gray);margin-bottom:20px;font-size:0.9rem;">Supporting palette</p>
+        <div class="color-grid">
+            <div class="color-swatch" onclick="copyHex(this)" data-hex="#6C63FF">
+                <div class="preview" style="background:#6C63FF;">
+                    <span class="label-tag" style="background:rgba(255,255,255,0.2);color:#fff;">🟣 Innovation</span>
+                </div>
+                <div class="info"><span class="hex">#6C63FF</span><span class="use">Subtle Purple — gradients, futuristic accents</span></div>
+            </div>
+            <div class="color-swatch" onclick="copyHex(this)" data-hex="#F5F7FA">
+                <div class="preview" style="background:#F5F7FA;">
+                    <span class="label-tag" style="background:rgba(6,14,26,0.1);color:#0B1F3B;">⚪ Clean</span>
+                </div>
+                <div class="info"><span class="hex">#F5F7FA</span><span class="use">Clean White — text on dark backgrounds</span></div>
+            </div>
+            <div class="color-swatch" onclick="copyHex(this)" data-hex="#AAB4C0">
+                <div class="preview" style="background:#AAB4C0;">
+                    <span class="label-tag" style="background:rgba(6,14,26,0.3);color:#060E1A;">🩶 Subtle</span>
+                </div>
+                <div class="info"><span class="hex">#AAB4C0</span><span class="use">Soft Gray — secondary text, UI elements</span></div>
+            </div>
+        </div>
+
+        <h3 style="font-family:'Montserrat',sans-serif;margin:32px 0 6px;">Signature Background Gradient</h3>
+        <p style="color:var(--soft-gray);margin-bottom:16px;font-size:0.9rem;">Use for banners, thumbnails, and hero sections</p>
+        <div class="gradient-showcase"></div>
+        <div class="gradient-code">background: linear-gradient(135deg, #0B1F3B, #0F2D5C, #0FA3FF);
+
+/* Optional cyan glow overlay */
+background: radial-gradient(ellipse at 60% 30%, rgba(0, 224, 255, 0.12) 0%, transparent 60%);</div>
+    </div>
+</section>
+
+<!-- ═══════════════ 2. TYPOGRAPHY ═══════════════ -->
+<section id="typography">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">03</span>
+            <h2>Typography System</h2>
+        </div>
+        <div class="type-grid">
+            <div class="type-card">
+                <div class="sample montserrat">SAP Business One<br>Development &amp; Integrations</div>
+                <div class="name">Montserrat SemiBold / Bold</div>
+                <div class="use">Headlines · Video thumbnails · Banner text</div>
+                <div class="weights">
+                    <span>SemiBold 600</span><span>Bold 700</span><span>ExtraBold 800</span>
+                </div>
+            </div>
+            <div class="type-card">
+                <div class="sample inter">Enterprise-grade SAP Business<span style="color:var(--sap-blue);"> One</span> development made practical.</div>
+                <div class="name">Inter / Segoe UI</div>
+                <div class="use">Body text · Explanations · Subtitles · UI labels</div>
+                <div class="weights">
+                    <span>Regular 400</span><span>Medium 500</span><span>SemiBold 600</span>
+                </div>
+            </div>
+            <div class="type-card">
+                <div class="sample fira">var result = serviceLayer<br>.GetBusinessPartners();</div>
+                <div class="name">Fira Code</div>
+                <div class="use">Code snippets · SAP queries · Technical overlays</div>
+                <div class="weights">
+                    <span>Regular 400</span><span>Medium 500</span><span>SemiBold 600</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 3. LOGO STYLE ═══════════════ -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="num">04</span>
+            <h2>Logo Style Guide</h2>
+        </div>
+        <div class="card">
+            <h3>Concept Direction</h3>
+            <p>Abstract integration network — nodes + data flow lines, ERP system connectivity metaphor. Optional subtle "SB1" or "SBI" monogram.</p>
+        </div>
+
+        <div class="card">
+            <h3>Style Rules</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:16px;">
+                <div style="text-align:center;padding:16px;background:rgba(6,14,26,0.4);border-radius:10px;">
+                    <span style="font-size:1.6rem;">📐</span>
+                    <p style="font-size:0.82rem;margin-top:6px;">Flat or semi-flat<br>(no 3D clutter)</p>
+                </div>
+                <div style="text-align:center;padding:16px;background:rgba(6,14,26,0.4);border-radius:10px;">
+                    <span style="font-size:1.6rem;">◻️</span>
+                    <p style="font-size:0.82rem;margin-top:6px;">Minimal shapes only</p>
+                </div>
+                <div style="text-align:center;padding:16px;background:rgba(6,14,26,0.4);border-radius:10px;">
+                    <span style="font-size:1.6rem;">📱</span>
+                    <p style="font-size:0.82rem;margin-top:6px;">Works at 48×48px<br>(profile icon test)</p>
+                </div>
+                <div style="text-align:center;padding:16px;background:rgba(6,14,26,0.4);border-radius:10px;">
+                    <span style="font-size:1.6rem;">🚫</span>
+                    <p style="font-size:0.82rem;margin-top:6px;">No complex text<br>inside icon</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Logo Variants</h3>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;">
+                <div style="width:80px;height:80px;background:var(--gradient);border-radius:16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--card-border);" title="Dark background version (primary)">
+                    <span style="color:var(--cyan-accent);font-weight:700;font-size:1.1rem;">SB1</span>
+                </div>
+                <div style="width:80px;height:80px;background:var(--white);border-radius:16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--card-border);" title="White/mono version">
+                    <span style="color:var(--deep-blue);font-weight:700;font-size:1.1rem;">SB1</span>
+                </div>
+                <div style="width:80px;height:80px;background:rgba(0,224,255,0.1);border-radius:16px;display:flex;align-items:center;justify-content:center;border:2px solid var(--cyan-accent);" title="Cyan accent version">
+                    <span style="color:var(--cyan-accent);font-weight:700;font-size:1.1rem;text-shadow:0 0 10px rgba(0,224,255,0.5);">SB1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 4. YOUTUBE BANNER ═══════════════ -->
+<section id="banner">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">05</span>
+            <h2>YouTube Banner Style</h2>
+        </div>
+        <div class="banner-mockup">
+            <div class="left">
+                <div class="logo-placeholder">
+                    <div class="node"></div><div class="node"></div><div class="node"></div>
+                    <div class="line"></div><div class="line"></div><div class="line"></div>
+                </div>
+            </div>
+            <div class="center">
+                <h2>SAP Business One<br>Development &amp; Integrations</h2>
+                <p class="tagline">C# · Service Layer · DI API · Power BI · Automation</p>
+            </div>
+            <div class="right">
+                <div class="flow-line"></div>
+                <div class="flow-node"></div>
+                <div class="flow-line"></div>
+                <div class="flow-node"></div>
+                <div class="flow-line"></div>
+                <div class="flow-node"></div>
+                <div class="flow-line"></div>
+            </div>
+        </div>
+        <p style="color:var(--soft-gray);font-size:0.85rem;margin-top:10px;text-align:center;">
+            Left: logo · Center: channel name · Right: abstract integration graphics
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════════ 5. THUMBNAILS ═══════════════ -->
+<section id="thumbnails">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">06</span>
+            <h2>Thumbnail Style System</h2>
+        </div>
+        <p style="color:var(--soft-gray);margin-bottom:24px;font-size:0.9rem;">
+            Dark blue background · Bold title (3–5 words) · Cyan highlight words · Code/API snippet overlay
+        </p>
+        <div class="thumb-grid">
+            <div class="thumb">
+                <div class="title">SAP B1 API<br><span class="cyan">EXPLAINED</span></div>
+                <div class="code-overlay">GET /ServiceLayer/<br>  BusinessPartners</div>
+            </div>
+            <div class="thumb">
+                <div class="title"><span class="cyan">DI API</span> vs<br><span class="cyan">SERVICE LAYER</span></div>
+                <div class="code-overlay">Company.Connect()<br>  .GetBusinessObject()</div>
+            </div>
+            <div class="thumb">
+                <div class="title">FIX THIS<br><span class="cyan">SAP ERROR</span></div>
+                <div class="code-overlay">try { /* fix */ }<br>catch (Exception e)</div>
+            </div>
+        </div>
+        <div class="card" style="margin-top:24px;">
+            <h3>Thumbnail Rules</h3>
+            <ul style="color:var(--soft-gray);font-size:0.9rem;padding-left:20px;display:flex;flex-direction:column;gap:8px;">
+                <li>✅ High contrast <strong style="color:var(--white);">always</strong></li>
+                <li>✅ No clutter — one idea per thumbnail</li>
+                <li>✅ Use <strong style="color:var(--cyan-accent);">cyan glow</strong> to highlight keywords</li>
+                <li>✅ Large bold title — readable at small sizes</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 6. BRAND VOICE ═══════════════ -->
+<section id="voice">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">07</span>
+            <h2>Brand Voice</h2>
+        </div>
+        <div class="card">
+            <h3>Tone</h3>
+            <p style="font-size:1.05rem;">Direct · Technical but simple · Solution-oriented</p>
+        </div>
+        <div class="voice-examples">
+            <div class="voice-example do">
+                <span class="tag">✅ Do</span>
+                "Here's how you actually do it in SAP B1…"
+            </div>
+            <div class="voice-example do">
+                <span class="tag">✅ Do</span>
+                "This is the cleanest way to integrate Service Layer…"
+            </div>
+            <div class="voice-example do">
+                <span class="tag">✅ Do</span>
+                "Avoid this common DI API mistake…"
+            </div>
+            <div class="voice-example avoid">
+                <span class="tag">❌ Avoid</span>
+                "SAP Business One is a comprehensive ERP solution used by enterprises worldwide…" (over-explaining theory)
+            </div>
+            <div class="voice-example avoid">
+                <span class="tag">❌ Avoid</span>
+                Generic "SAP overview" content — your audience already knows the basics
+            </div>
+            <div class="voice-example avoid">
+                <span class="tag">❌ Avoid</span>
+                Corporate marketing tone — "Unlock the power of digital transformation with SAP…"
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 7. DIFFERENTIATION ═══════════════ -->
+<section id="differentiation">
+    <div class="container">
+        <div class="section-header">
+            <span class="num">08</span>
+            <h2>Brand Differentiation</h2>
+        </div>
+        <div class="diff-grid">
+            <div class="diff-card not">
+                <div class="icon">📚</div>
+                <h4>Generic SAP Tutorial</h4>
+                <p>Beginner overviews and theory-heavy content</p>
+            </div>
+            <div class="diff-card not">
+                <div class="icon">🎓</div>
+                <h4>Beginner ERP Explainer</h4>
+                <p>What-is-SAP content for newcomers</p>
+            </div>
+            <div class="diff-card is">
+                <div class="icon">⚙️</div>
+                <h4>Integration Engineer</h4>
+                <p>Real-world SAP B1 builder solving actual integration problems</p>
+            </div>
+            <div class="diff-card is">
+                <div class="icon">🛠️</div>
+                <h4>Freelancer-Focused</h4>
+                <p>Consulting-oriented, practical, and immediately applicable</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ 8. SIGNATURE MOTIF ═══════════════ -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="num">09</span>
+            <h2>Signature Visual Motif</h2>
+        </div>
+        <p style="color:var(--soft-gray);margin-bottom:20px;font-size:0.9rem;">
+            Use these recurring elements to make your brand instantly recognizable across all content.
+        </p>
+        <div class="motif-showcase">
+            <div class="motif-item">
+                <div class="icon-box">🔷</div>
+                <div class="label">Glowing<br>Connection Lines</div>
+            </div>
+            <div class="motif-item">
+                <div class="icon-box">📡</div>
+                <div class="label">Data Flow<br>Arrows</div>
+            </div>
+            <div class="motif-item">
+                <div class="icon-box">🧩</div>
+                <div class="label">Integration<br>Nodes</div>
+            </div>
+            <div class="motif-item">
+                <div class="icon-box">🌐</div>
+                <div class="label">ERP Network<br>Diagram Style</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+    <div class="container">
+        <div class="gradient-bar"></div>
+        <p style="font-family:'Fira Code',monospace;color:var(--cyan-accent);font-size:0.75rem;margin-bottom:8px;">
+            SAP B1 Developer Channel — Branding Kit v1.0
+        </p>
+        <p>
+            Enterprise-grade SAP Business One development<br>made practical for real-world integrations.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Copy hex on color swatch click
+    function copyHex(el) {
+        const hex = el.getAttribute('data-hex');
+        navigator.clipboard.writeText(hex).then(() => {
+            const toast = document.getElementById('toast');
+            toast.textContent = 'Copied ' + hex + '!';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 1800);
+        });
+    }
+
+    // Smooth scroll for nav dots
+    document.querySelectorAll('.nav-dots a').forEach(dot => {
+        dot.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(dot.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Highlight active nav dot on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.nav-dots a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 200) current = s.getAttribute('id');
+        });
+        dots.forEach(d => {
+            d.classList.toggle('active', d.getAttribute('href') === '#' + current);
+        });
+    });
+</script>
+</body>
+</html>
