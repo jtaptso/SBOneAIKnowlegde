@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Variants Preview</title>
+<style>
+  body { margin: 0; padding: 40px; font-family: 'Segoe UI', sans-serif; background: #111; color: #F5F7FA; }
+  h1 { text-align: center; margin-bottom: 40px; color: #00E0FF; }
+  .grid { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+  .card { text-align: center; }
+  .card h3 { margin-bottom: 12px; font-size: 0.9rem; color: #AAB4C0; }
+  .logo-box { width: 200px; height: 200px; border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+  .logo-box.light { background: #F5F7FA; }
+  .logo-box.dark { background: #0B1F3B; }
+  .logo-box.cyan-bg { background: rgba(0,224,255,0.08); border-color: rgba(0,224,255,0.3); }
+  img { width: 160px; height: 160px; }
+  .legend { text-align: center; margin-top: 40px; color: #AAB4C0; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<h1>Logo Variants — SAP B1 Developer Channel</h1>
+<div class="grid">
+  <div class="card">
+    <h3>Primary (light bg)</h3>
+    <div class="logo-box light"><img src="logo.svg" alt="Primary logo"></div>
+  </div>
+  <div class="card">
+    <h3>White / Mono (dark bg)</h3>
+    <div class="logo-box dark"><img src="logo-white.svg" alt="White logo"></div>
+  </div>
+  <div class="card">
+    <h3>Cyan Accent</h3>
+    <div class="logo-box cyan-bg"><img src="logo-cyan.svg" alt="Cyan logo"></div>
+  </div>
+</div>
+<p class="legend">Integration-network logo — hexagon hub, data-flow nodes, SB1 monogram</p>
+</body>
+</html>
