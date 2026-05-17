@@ -36,7 +36,7 @@ namespace Application.Services
                 throw new Exception("Document not found");
             
             //Extract text from Pdf file
-            var text = await _pdfService.ExtractTextAsync(document.FileName);
+            var text = await _pdfService.ExtractTextAsync(document.FilePath);
 
             //chunk the extracted part
             var chunks = _chunkingService.ChunkText(text);

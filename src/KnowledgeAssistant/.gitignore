@@ -61,5 +61,8 @@ logs/
 *.azurite/
 __azurite_db*__.json
 
+## Uploaded documents
+Uploads/
+
 ## EF Core migrations backup (optional)
 # Migrations/Backup/
